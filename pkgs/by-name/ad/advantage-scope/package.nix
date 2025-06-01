@@ -23,13 +23,11 @@ buildNpmPackage (finalAttrs: {
     npmDepsHash = "sha256-fGwO8tFTA7zulOrRL4x7XoJViL3nEZTnqdFlHTwPwbc=";
     makeCacheWritable = true;
     npmFlags = [ "--legacy-peer-deps" "--ignore-scripts" ];
-    installPhase = ''
-    '';
 
     preBuild = ''
         cd $TMPDIR
         export EMSCRIPTENCACHE=$(mkdir emscriptencache)
-        cd $TMPDIR/source
+        cd $./source
     '';
     buildPhase = ''
         cd docs/
