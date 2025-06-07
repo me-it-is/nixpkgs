@@ -17,7 +17,7 @@ buildNpmPackage (finalAttrs: {
         repo = "AdvantageScope";
         #tag = "v${finalAttrs.version}";
         rev = "main";
-        hash = "sha256-xJw+PKgu0ovS5WUzw6M5VOkAhEhlwEBBv3MKdlIxcjg=";
+        hash = "sha256-bpEa6yHIQjpKJ31iGzQnCXAQtL4wsg7rmBBGgnrDF4Q=";
     };
 
     npmDepsHash = "sha256-fGwO8tFTA7zulOrRL4x7XoJViL3nEZTnqdFlHTwPwbc=";
@@ -30,10 +30,20 @@ buildNpmPackage (finalAttrs: {
         cd $./source
     '';
     buildPhase = ''
-        cd docs/
-        ls -a
-        cd ..
-        npm run build 
+        npm run compile
+        npm run wasm:compile
+        # ls -a
+        # cd
+        cp -r ${electron.dist} electron-dist
+        chmod -R u+w electron-dist
+        npx electron-builder build -l -c.electronDist=electron-dist -c.electronVersion=${electron.version}
+    '';
+    postBuild = ''
+    ls -a
+    cd dist
+    ls -a
+    cd ..
+    cp -r dist $out 
     '';
 
     meta = {
@@ -44,4 +54,5 @@ buildNpmPackage (finalAttrs: {
     };
 
     nativeBuildInputs = [ emscripten electron nodejs ];
+    buildInputs = [ emscripten electron nodejs ];
 })
