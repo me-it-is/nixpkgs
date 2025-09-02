@@ -29,17 +29,18 @@
   unstableGitUpdater,
   apple-sdk_14,
   libtommath,
+  sdl3
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ladybird";
-  version = "0-unstable-2025-08-29";
+  version = "0-unstable-2025-09-2";
 
   src = fetchFromGitHub {
     owner = "LadybirdWebBrowser";
     repo = "ladybird";
-    rev = "c3aa8f0c8d3ee28b100260b376c45f2583b49c0d";
-    hash = "sha256-pckHeaGhpFemCIhTL8FeNWVea8itvy3SFYT9oWVPmu4=";
+    rev = "18c0739bbbdb91b4d95dc5c9b7c008c67865ebd5";
+    hash = "sha256-zm64b4Sg3EVDtykpUZup9acxMs/guTC6mHxie6Y5vwU=";
   };
 
   postPatch = ''
@@ -76,6 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     python3
     qt6Packages.wrapQtAppsHook
     libtommath
+    sdl3
   ];
 
   buildInputs = [
